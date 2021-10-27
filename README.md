@@ -6,8 +6,10 @@
       src="https://webpack.js.org/assets/icon-square-big.svg">
   </a>
   <h1>Rem Webpack Plugin</h1>
-  [![npm][npm]][npm-url]
-[![node][node]][node-url]
+
+![NPM](https://img.shields.io/npm/v/rem-webpack-plugin)
+ ![NPM](https://img.shields.io/badge/License-MIT-yellow.svg)
+
   <p>一款向html中插入rem自适应脚本的插件</p>
 </div>
 
