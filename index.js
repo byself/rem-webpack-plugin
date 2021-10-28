@@ -33,10 +33,13 @@ class RemWebpackPlugin {
 
     apply(compiler){
         compiler.hooks.compilation.tap(pluginName, compilation => {
-            console.log('The compiler is starting a new compilation...')
-            HtmlWebpackPlugin.getHooks(compilation).beforeEmit.tapAsync(pluginName, (data, callback) => {
+            let HtmlWebpackHooks = compilation.hooks.htmlWebpackPluginAfterHtmlProcessing;
+            if(!HtmlWebpackHooks){
+                HtmlWebpackHooks = HtmlWebpackPlugin.getHooks(compilation).beforeEmit;
+            }
+            HtmlWebpackHooks.tap(pluginName, (data, callback) => {
                 data.html = data.html.replace(/<head>/ig, (str) => str + this.remStr)
-                callback(null, data)
+                callback && callback(null, data)
             })
         })
     }

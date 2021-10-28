@@ -3,7 +3,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var RemWebpackPlugin = require('./index.js');
 
 module.exports = {
-    mode:"development",
+    mode:"production",
     entry:"./example/src/index.js",
     output:{
         path: path.resolve(__dirname, "dist")
