@@ -1,8 +1,11 @@
 {
   "name": "rem-webpack-plugin",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "add rem.js to html head",
   "main": "index.js",
+  "files": [
+    "index.js"
+  ],
   "scripts": {
     "dev": "npx webpack"
   },
