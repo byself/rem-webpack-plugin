@@ -1,6 +1,6 @@
 {
   "name": "rem-webpack-plugin",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "add rem.js to html head",
   "main": "index.js",
   "files": [

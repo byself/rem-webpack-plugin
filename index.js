@@ -19,8 +19,12 @@ class RemWebpackPlugin {
             var rootClientWidth = ${this.options.rootWidth};
             var ratio = rootClientWidth / rootFontSize;
             var clientWidth = window.document.documentElement.clientWidth;
+            console.log(clientWidth)
             clientWidth = clientWidth < ${this.options.maxWidth} ? clientWidth : ${this.options.maxWidth};
+
             document.documentElement.style.fontSize = clientWidth / ratio + "px";
+
+            
         }
 
         setRem();
@@ -38,7 +42,9 @@ class RemWebpackPlugin {
                 HtmlWebpackHooks = HtmlWebpackPlugin.getHooks(compilation).beforeEmit;
             }
             HtmlWebpackHooks.tap(pluginName, (data, callback) => {
-                data.html = data.html.replace(/<head>/ig, (str) => str + this.remStr)
+                data.html = data.html.replace(/<meta name="viewport".*>/, (str) => {
+                    return str + this.remStr
+                })
                 callback && callback(null, data)
             })
         })
