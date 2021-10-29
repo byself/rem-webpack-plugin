@@ -1,17 +1,17 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("../virgoui/node_modules/html-webpack-plugin");
 
-const pluginName = "RemWebpackPlugin"
+const pluginName = "RemWebpackPlugin";
 
 class RemWebpackPlugin {
-    static defaultOptions = {
-        root: 100,
-        rootWidth: 750,
-        maxWidth: 750
-    };
+  static defaultOptions = {
+    root: 100,
+    rootWidth: 750,
+    maxWidth: 750,
+  };
 
-    constructor(options = {}){
-        this.options = {...RemWebpackPlugin.defaultOptions, ...options}
-        this.remStr = `
+  constructor(options = {}) {
+    this.options = { ...RemWebpackPlugin.defaultOptions, ...options };
+    this.remStr = `
     <script>
         (function () {
         function setRem() {
@@ -32,23 +32,29 @@ class RemWebpackPlugin {
         window.addEventListener("resize", setRem);
         })();
     </script>
-    `
-    }
+    `;
+  }
 
-    apply(compiler){
-        compiler.hooks.compilation.tap(pluginName, compilation => {
-            let HtmlWebpackHooks = compilation.hooks.htmlWebpackPluginAfterHtmlProcessing;
-            if(!HtmlWebpackHooks){
-                HtmlWebpackHooks = HtmlWebpackPlugin.getHooks(compilation).beforeEmit;
-            }
-            HtmlWebpackHooks.tap(pluginName, (data, callback) => {
-                data.html = data.html.replace(/<meta name="viewport".*>/, (str) => {
-                    return str + this.remStr
-                })
-                callback && callback(null, data)
-            })
-        })
-    }
+  apply(compiler) {
+    compiler.hooks.compilation.tap(pluginName, (compilation) => {
+      let HtmlWebpackHooksTap =
+        compilation.hooks &&
+        compilation.hooks.htmlWebpackPluginAfterHtmlProcessing;
+
+      if (!HtmlWebpackHooksTap) {
+        HtmlWebpackHooksTap =
+          HtmlWebpackPlugin.getHooks(compilation).beforeEmit;
+      }
+
+      HtmlWebpackHooksTap.tap(pluginName, (data, callback) => {
+        data.html = data.html.replace(/\r\n/g, "").replace(
+          /<meta.+name="viewport".+\/>/gi,
+          (str) => str + this.remStr
+        );
+        callback && callback(null, data);
+      });
+    });
+  }
 }
 
 module.exports = RemWebpackPlugin;

@@ -1,6 +1,6 @@
 {
   "name": "rem-webpack-plugin",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "add rem.js to html head",
   "main": "index.js",
   "files": [
@@ -24,7 +24,6 @@
   },
   "homepage": "https://github.com/byself/rem-webpack-plugin#readme",
   "devDependencies": {
-    "html-webpack-plugin": "^5.5.0",
     "webpack": "^5.60.0",
     "webpack-cli": "^4.9.1"
   }
